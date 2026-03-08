@@ -130,9 +130,9 @@ function runApolloScene(step) {
     const data = apolloScript[step];
     const textElement = document.getElementById('apollo-text');
     const choicesContainer = document.getElementById('apollo-choices');
-    const apolloImg = document.getElementById('apollo-img');
-    const dionImg = document.getElementById('dion-img');
-    const nameTag = document.querySelector('.name-tag');
+    const apolloPortrait = document.getElementById('apollo-portrait');
+    const dionPortrait = document.getElementById('dion-portrait');
+    const nameTag = document.getElementById('speaker-name');
 
     if (!textElement || !choicesContainer) {
         console.log('Apollo dialogue elements not found');
@@ -153,13 +153,17 @@ function runApolloScene(step) {
     // Update dialogue text
     textElement.innerText = data.text;
 
-    // Update character brightness
+    // Update character brightness - toggle active/dim classes on portrait containers
     if (data.speaker === "APOLLO") {
-        apolloImg.className = "portrait active";
-        dionImg.className = "portrait dim";
+        apolloPortrait.classList.add('active');
+        apolloPortrait.classList.remove('dim');
+        dionPortrait.classList.remove('active');
+        dionPortrait.classList.add('dim');
     } else if (data.speaker === "DION") {
-        dionImg.className = "portrait active";
-        apolloImg.className = "portrait dim";
+        dionPortrait.classList.add('active');
+        dionPortrait.classList.remove('dim');
+        apolloPortrait.classList.remove('active');
+        apolloPortrait.classList.add('dim');
     }
 
     // Update dialogue choices

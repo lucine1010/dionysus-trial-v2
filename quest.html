@@ -30,17 +30,23 @@
     <section id="quest2" class="page">
         <div class="apollo-flash-bg"></div>
         
-        <div class="dialogue-container">
-            <div class="portrait-box">
-                <img src="img/Apollo.png" id="apollo-img" class="portrait active" alt="Apollo">
-                <img src="img/dion.png" id="dion-img" class="portrait dim" alt="Dionysus">
+        <div class="roleplay-screen">
+            <!-- Apollo Portrait (Left) -->
+            <div class="portrait left active" id="apollo-portrait">
+                <img src="img/A-H_0002s_0000_normal.png" id="apollo-img" alt="Apollo">
+            </div>
+            
+            <!-- Dionysus Portrait (Right) -->
+            <div class="portrait right dim" id="dion-portrait">
+                <img src="img/Normal-1.png" id="dion-img" alt="Dionysus">
             </div>
 
+            <!-- Dialogue Box -->
             <div class="dialogue-footer">
-                <div class="name-tag cathdra">NARRATION</div>
+                <div class="name-tag cathdra" id="speaker-name">APOLLO</div>
                 <div class="dialogue-content">
                     <p id="apollo-text">"The dream is interrupted by a blinding light..."</p>
-                    <div id="apollo-choices"></div>
+                    <div id="apollo-choices" class="choices-container"></div>
                 </div>
             </div>
         </div>
