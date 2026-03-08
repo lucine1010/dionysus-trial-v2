@@ -1,0 +1,119 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dionysus: The Dream Trial</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+    <nav id="hud">
+        <div class="grape-display">🍇 Grapes: <span id="grape-count">0</span>/5</div>
+    </nav>
+
+    <div id="chatbot-container">
+        <div id="chatbot-window" class="hidden">
+            <div id="chatbot-header">Satyr (Guide)</div>
+            <div id="chatbot-history"></div>
+            <div id="chatbot-input-area">
+                <input type="text" id="user-input" placeholder="Type YES to join...">
+                <button onclick="sendMessage()">SEND</button>
+            </div>
+        </div>
+        <div id="satyr-trigger" onclick="toggleChat()">
+            <img src="img/satyr.png" alt="Satyr Sprite">
+        </div>
+    </div>
+
+    <section id="campus" class="page">
+        <div class="campus-bg"></div>
+        <div class="overlay"></div>
+        
+        <div class="hero-container">
+            <div class="hero-content">
+                <p class="hero-subtitle">PROUDLY PRESENT THE DREAM TRIAL</p>
+                <h1 class="hero-title">Dionysus</h1>
+                <p class="hero-description">God of Wine, Revelry, and Shattered Patterns</p>
+                <a href="quest.html" class="start-btn">BEGIN THE TRIAL</a>
+            </div>
+        </div>
+    </section>
+
+    <section id="quest2" class="page hidden">
+        <div class="apollo-flash-bg"></div>
+        
+        <div class="dialogue-container">
+            <div class="portrait-box">
+                <img src="img/Apollo.png" id="apollo-img" class="portrait active" alt="Apollo">
+                <img src="img/dion.png" id="dion-img" class="portrait dim" alt="Dionysus">
+            </div>
+
+            <div class="dialogue-footer">
+                <div class="name-tag cathdra">NARRATION</div>
+                <div class="dialogue-content">
+                    <p id="apollo-text">"The dream is interrupted by a blinding light..."</p>
+                    <div id="apollo-choices">
+                        </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section id="quest3" class="page hidden">
+        <div class="content">
+            <h1 class="cathdra">THE LABYRINTH</h1>
+            
+            <div class="fragment-container">
+                <img src="img/Leopard (13).png" alt="Leopard" class="floating-pixel">
+                <img src="img/fragment (1).png" alt="Fragment" class="floating-pixel delay">
+            </div>
+
+            <div class="narrative-box">
+                <p>"The patterns have been shattered. Only the lens can reveal the truth."</p>
+                <p><strong>MISSION:</strong> Enter the AR Maze and collect the leopard fragments.</p>
+            </div>
+
+            <div class="action-area">
+                <button class="gate-btn" onclick="alert('Unity AR Link goes here!')">LAUNCH AR EXPERIENCE</button>
+                <button class="debug-btn" onclick="navigateTo('quest4')">SKIP TO QUEST 4</button>
+            </div>
+        </div>
+    </section>
+
+<section id="quest4" class="page hidden">
+    <div class="content">
+        <h1 class="cathdra">DIVINE ALLIANCE</h1>
+        <div class="puzzle-area">
+            <img src="img/puzzle.png" alt="Alliance Puzzle" class="puzzle-img">
+        </div>
+        <div class="narrative-box">
+            <p>"The logic of the sun and the passion of the vine... finally aligned."</p>
+            <p>You and Apollo have pieced together the cure. The dream begins to stabilize.</p>
+        </div>
+        <div class="action-area">
+            <button class="gate-btn" onclick="alert('Preparing VR experience...')">WAKE UP (PROCEED TO VR)</button>
+            <button class="debug-btn" onclick="navigateTo('quest5')">SKIP TO QUEST 5</button>
+        </div>
+    </div>
+</section>
+
+    <section id="quest5" class="page hidden">
+        <div class="content">
+            <h1 class="cathdra">THE AWAKENING</h1>
+            <p>The rain of clarity begins to fall...</p>
+            <button class="debug-btn" onclick="navigateTo('ending')">End Trial</button>
+        </div>
+    </section>
+
+    <section id="ending" class="page hidden">
+        <div class="content">
+            <h1 class="cathdra">ZEUS'S TRIAL ENDED</h1>
+            <p>You have passed the test, Dionysus.</p>
+            <button class="gate-btn" onclick="restartTrial()">RESTART TRIAL</button>
+        </div>
+    </section>
+
+    <script src="script.js"></script>
+</body>
+</html>
