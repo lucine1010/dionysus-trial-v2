@@ -1,0 +1,328 @@
+/* =========================
+   ROLEPLAY 1 / 2 SHARED
+========================= */
+
+#quest2 {
+  position: relative;
+  min-height: 100vh;
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+  transition: background-image 0.45s ease;
+  overflow: hidden;
+}
+
+#quest2::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: rgba(10, 10, 16, 0.22);
+  pointer-events: none;
+  z-index: 1;
+}
+
+.roleplay-screen {
+  position: relative;
+  width: 100%;
+  min-height: 100vh;
+  z-index: 2;
+}
+
+/* =========================
+   CHARACTER PORTRAITS
+========================= */
+
+.portrait {
+  position: absolute;
+  bottom: 0;
+  width: auto;
+  height: 85vh;
+  max-width: 32vw;
+  transition: all 0.35s ease;
+  z-index: 6;
+  pointer-events: none;
+}
+
+.portrait img {
+  display: block;
+  height: 100%;
+  width: auto;
+  object-fit: contain;
+}
+
+.portrait.left {
+  left: 50%;
+}
+
+.portrait.right {
+  right: 50%;
+}
+
+.portrait.left.active {
+  opacity: 1;
+  filter: brightness(1) grayscale(0);
+  transform: translateX(calc(-100% - 30px)) scale(1.02);
+}
+
+.portrait.left.dim {
+  opacity: 0.3;
+  filter: brightness(0.25) grayscale(0.9);
+  transform: translateX(calc(-100% - 30px)) scale(0.98);
+}
+
+.portrait.right.active {
+  opacity: 1;
+  filter: brightness(1) grayscale(0);
+  transform: translateX(calc(100% + 30px)) scale(1.02);
+}
+
+.portrait.right.dim {
+  opacity: 0.3;
+  filter: brightness(0.25) grayscale(0.9);
+  transform: translateX(calc(100% + 30px)) scale(0.98);
+}
+
+.roleplay-hidden {
+  opacity: 0 !important;
+  visibility: hidden !important;
+}
+
+/* =========================
+   DIALOGUE BOX
+========================= */
+
+.dialogue-footer {
+  position: absolute;
+  left: 50%;
+  bottom: 3vh;
+  transform: translateX(-50%);
+  width: min(650px, 62vw);
+  min-height: 120px;
+  background: rgba(16, 18, 28, 0.9);
+  border: 1.5px solid rgba(205, 169, 96, 0.85);
+  border-radius: 22px;
+  padding: 13px 16px 13px;
+  z-index: 30;
+  box-shadow:
+    0 12px 40px rgba(0, 0, 0, 0.45),
+    inset 0 0 0 1px rgba(255, 255, 255, 0.03);
+  backdrop-filter: blur(8px);
+}
+
+.name-tag {
+  position: relative;
+  z-index: 31;
+  margin-bottom: 8px;
+  font-size: 1.75rem;
+  letter-spacing: 2px;
+  text-transform: uppercase;
+  color: #cda960;
+  text-shadow: 0 0 14px rgba(205, 169, 96, 0.28);
+}
+
+.dialogue-content {
+  position: relative;
+  z-index: 31;
+  width: 100%;
+}
+
+/* 关键：强制正文显示 */
+#apollo-text {
+  display: block !important;
+  visibility: visible !important;
+  opacity: 1 !important;
+  position: relative;
+  z-index: 32;
+  margin: 0;
+  min-height: 52px;
+  color: #f5f1e8 !important;
+  font-size: 0.95rem !important;
+  line-height: 1.65 !important;
+  font-weight: 400;
+  letter-spacing: 0.2px;
+  text-align: left;
+  white-space: normal;
+}
+
+/* 防止旧样式把 p 压掉 */
+.dialogue-content p {
+  color: #f5f1e8 !important;
+  opacity: 1 !important;
+  visibility: visible !important;
+}
+
+/* =========================
+   CHOICES
+========================= */
+
+.choices-container {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+  margin-top: 18px;
+  position: relative;
+  z-index: 32;
+}
+
+.dialogue-btn {
+  border: 1px solid rgba(205, 169, 96, 0.78);
+  background: rgba(205, 169, 96, 0.1);
+  color: #f8f4ea;
+  padding: 10px 16px;
+  border-radius: 999px;
+  cursor: pointer;
+  font-size: 0.92rem;
+  line-height: 1.35;
+  transition: all 0.22s ease;
+}
+
+.dialogue-btn:hover {
+  background: rgba(205, 169, 96, 0.22);
+  transform: translateY(-1px);
+}
+
+.dialogue-btn:active {
+  transform: translateY(0);
+}
+
+/* =========================
+   MOBILE / TABLET
+========================= */
+
+@media (max-width: 1100px) {
+  .portrait {
+    height: 78vh;
+    max-width: 32vw;
+  }
+
+  .portrait.left.active {
+    transform: translateX(calc(-100% - 20px)) scale(1.02);
+  }
+
+  .portrait.left.dim {
+    transform: translateX(calc(-100% - 20px)) scale(0.98);
+  }
+
+  .portrait.right.active {
+    transform: translateX(calc(100% + 20px)) scale(1.02);
+  }
+
+  .portrait.right.dim {
+    transform: translateX(calc(100% + 20px)) scale(0.98);
+  }
+
+  .dialogue-footer {
+    width: 62vw;
+    min-height: 118px;
+    padding: 12px 15px 12px;
+  }
+
+  .name-tag {
+    font-size: 1.6rem;
+    margin-bottom: 7px;
+  }
+
+  #apollo-text {
+    font-size: 0.92rem !important;
+    line-height: 1.6 !important;
+    min-height: 50px;
+  }
+}
+
+@media (max-width: 820px) {
+  .portrait {
+    height: 70vh;
+    max-width: 36vw;
+  }
+
+  .portrait.left.active {
+    transform: translateX(calc(-100% - 15px)) scale(1.02);
+  }
+
+  .portrait.left.dim {
+    transform: translateX(calc(-100% - 15px)) scale(0.98);
+  }
+
+  .portrait.right.active {
+    transform: translateX(calc(100% + 15px)) scale(1.02);
+  }
+
+  .portrait.right.dim {
+    transform: translateX(calc(100% + 15px)) scale(0.98);
+  }
+
+  .dialogue-footer {
+    width: 88vw;
+    min-height: 115px;
+    padding: 12px 14px 12px;
+    bottom: 2.5vh;
+  }
+
+  .name-tag {
+    font-size: 1.4rem;
+    margin-bottom: 6px;
+  }
+
+  #apollo-text {
+    font-size: 0.90rem !important;
+    line-height: 1.6 !important;
+    min-height: 48px;
+  }
+
+  .dialogue-btn {
+    font-size: 0.82rem;
+    padding: 8px 12px;
+  }
+}
+
+@media (max-width: 640px) {
+  .portrait {
+    height: 58vh;
+    max-width: 40vw;
+  }
+
+  .portrait.left.active {
+    transform: translateX(calc(-100% - 10px)) scale(1.02);
+  }
+
+  .portrait.left.dim {
+    transform: translateX(calc(-100% - 10px)) scale(0.98);
+  }
+
+  .portrait.right.active {
+    transform: translateX(calc(100% + 10px)) scale(1.02);
+  }
+
+  .portrait.right.dim {
+    transform: translateX(calc(100% + 10px)) scale(0.98);
+  }
+
+  .dialogue-footer {
+    width: 92vw;
+    min-height: 110px;
+    padding: 11px 13px 11px;
+    border-radius: 18px;
+    bottom: 2vh;
+  }
+
+  .name-tag {
+    font-size: 1.1rem;
+    margin-bottom: 5px;
+  }
+
+  #apollo-text {
+    font-size: 0.85rem !important;
+    line-height: 1.55 !important;
+    min-height: 44px;
+  }
+
+  .choices-container {
+    gap: 7px;
+    margin-top: 10px;
+  }
+
+  .dialogue-btn {
+    font-size: 0.72rem;
+    padding: 7px 11px;
+  }
+}

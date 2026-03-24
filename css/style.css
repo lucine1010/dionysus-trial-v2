@@ -1,0 +1,471 @@
+/* 1. 字体与基础设置 */
+@font-face {
+    font-family: 'Cathdra';
+    /* 确保文件名与你文件夹里的完全一致，注意大小写和空格 */
+    src: url('fonts/IT Cathdra Demo.otf') format('opentype');
+}
+
+@import url('https://fonts.googleapis.com/css2?family=Playfair+Display:ital@0;1&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600;700&display=swap');
+
+:root {
+    --accent-gold: #C0A060;   /* 阿波罗金色 */
+    --accent-purple: #6C4675; /* 狄俄尼索斯紫色 */
+    --text-white: #D6CFC7;   /* 羊皮纸白 */
+}
+
+/* 1. 全局重置：不要在 body 加 padding，否则会推开所有页面的元素 */
+body, html {
+    margin: 0; 
+    padding: 0;
+    background-color: #0A090C;
+    min-height: 100vh;
+    width: 100%;
+    overflow-x: hidden; /* Allow vertical scrolling on small screens */
+}
+
+.cathdra {
+    font-family: 'Cathdra', serif !important;
+    color: var(--accent-gold) !important;
+    font-size: 5rem;
+    text-shadow: 0 0 10px rgba(192, 160, 96, 0.5);
+    margin: 20px 0;
+    margin-top: 0;
+}
+
+/* 2. HUD 修正：确保它浮动在最上层但不占位 */
+#hud {
+    position: fixed;
+    top: 0; left: 0;
+    width: 100%; height: 50px;
+    background: rgba(10, 9, 12, 0.9);
+    border-bottom: 2px solid #6C4675;
+    z-index: 10000;
+    display: flex; align-items: center; padding: 0 20px;
+}
+
+.grape-display {
+    color: var(--accent-gold);
+    font-size: 1.1rem;
+    font-weight: bold;
+    text-shadow: 0 0 8px rgba(192, 160, 96, 0.3);
+}
+
+
+
+/* 4. QUEST 1: CAMPUS 视觉修正 */
+.campus-bg {
+    position: absolute;
+    top: 0; left: 0; width: 100%; height: 100%;
+    background: url('img/1_draft.jpg') no-repeat center center;
+    background-size: cover;
+    filter: sepia(0.2) hue-rotate(250deg) brightness(0.7);
+    z-index: 1;
+}
+
+.overlay {
+    position: absolute;
+    top: 0; left: 0; width: 100%; height: 100%;
+    background: rgba(10, 9, 12, 0.5);
+    z-index: 2;
+}
+
+/* CAMPUS HERO SECTION: Dark Baroque/Gothic Aesthetic */
+.hero-container {
+    position: relative;
+    z-index: 50;
+    width: 100%;
+    height: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+    padding-top: 50px;
+}
+
+.hero-content {
+    text-align: center;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 20px;
+}
+
+.hero-subtitle {
+    font-family: 'Playfair Display', serif;
+    color: var(--accent-gold);
+    font-size: 1rem;
+    letter-spacing: 3px;
+    text-transform: uppercase;
+    font-weight: 400;
+    margin: 0;
+    text-shadow: 0 0 15px rgba(192, 160, 96, 0.4);
+    max-width: 100%;
+    word-wrap: break-word;
+}
+
+.hero-title {
+    font-family: 'Cathdra', serif;
+    color: var(--accent-gold);
+    font-size: clamp(3rem, 10vw, 8rem);
+    font-weight: 900;
+    margin: 0;
+    line-height: 1;
+    text-shadow: 
+        0 0 20px rgba(192, 160, 96, 0.8),
+        0 0 40px rgba(192, 160, 96, 0.6),
+        0 0 60px rgba(192, 160, 96, 0.4),
+        3px 3px 20px rgba(0, 0, 0, 0.8);
+    letter-spacing: -3px;
+    max-width: 100%;
+    overflow-wrap: break-word;
+}
+
+.hero-description {
+    font-family: 'Playfair Display', serif;
+    color: var(--text-white);
+    font-size: 1.3rem;
+    font-style: italic;
+    font-weight: 400;
+    margin: 0;
+    text-shadow: 0 0 10px rgba(192, 160, 96, 0.2);
+    letter-spacing: 1px;
+    max-width: 90%;
+    word-wrap: break-word;
+}
+
+/* START BUTTON: Hero CTA - styled as gate button */
+.start-btn {
+    display: inline-block;
+    background: transparent;
+    border: 2px solid var(--accent-gold);
+    color: var(--accent-gold);
+    padding: 12px 30px;
+    font-family: 'Playfair Display', serif;
+    font-size: 1rem;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 2px;
+    cursor: pointer;
+    margin-top: 30px;
+    transition: all 0.3s ease;
+    position: relative;
+    text-decoration: none;
+    overflow: hidden;
+}
+
+.start-btn::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: -100%;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(90deg, transparent, rgba(192, 160, 96, 0.3), transparent);
+    transition: left 0.6s ease;
+}
+
+.start-btn:hover {
+    background: var(--accent-gold);
+    color: #000;
+    transform: translateY(-2px);
+}
+
+.start-btn:hover::before {
+    left: 100%;
+}
+
+/* Comprehensive text color rules for all narrative elements */
+.content, .narrative-box, .dialogue-content, .bot-msg, .user-msg {
+    color: var(--text-white) !important;
+}
+
+
+
+
+
+
+#chatbot-container {
+    position: fixed;
+    bottom: 20px;
+    right: 20px;
+    z-index: 9999;
+    display: flex;
+    flex-direction: column;
+    align-items: flex-end;
+    pointer-events: auto;
+    max-width: 90vw;
+}
+
+
+#chatbot-window {
+    width: clamp(240px, 28vw, 320px);
+    max-height: 70vh;
+    height: auto;
+    background: rgba(10, 9, 12, 0.95);
+    border: 2px solid #6C4675;
+    border-radius: 20px;
+    margin-bottom: 10px;
+    display: flex;
+    flex-direction: column;
+    box-shadow: 0 8px 32px rgba(108, 70, 117, 0.3);
+    overflow-y: auto;
+    overflow-x: hidden;
+}
+
+#satyr-trigger img {
+    width: clamp(80px, 15vw, 160px);
+    height: auto;
+    cursor: pointer;
+    filter: drop-shadow(0 4px 12px rgba(108, 70, 117, 0.4));
+    transition: transform 0.2s ease;
+}
+
+#satyr-trigger img:hover {
+    transform: scale(1.05);
+}
+
+/* Chatbot header styling */
+#chatbot-header {
+    background: linear-gradient(135deg, #6C4675 0%, #8B5E9C 100%);
+    color: var(--text-white);
+    padding: 15px;
+    font-weight: bold;
+    text-align: center;
+    border-bottom: 1px solid rgba(192, 160, 96, 0.2);
+    font-size: 1rem;
+}
+
+/* Chat history styling */
+#chatbot-history {
+    flex: 1;
+    overflow-y: auto;
+    padding: 15px;
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+}
+
+#chatbot-history p {
+    margin: 0;
+    padding: 8px 12px;
+    border-radius: 12px;
+    word-wrap: break-word;
+    font-size: 0.95rem;
+}
+
+.bot-msg {
+    background: rgba(108, 70, 117, 0.4);
+    color: var(--text-white);
+    border-left: 3px solid #6C4675;
+    align-self: flex-start;
+    max-width: 85%;
+}
+
+.user-msg {
+    background: rgba(192, 160, 96, 0.3);
+    color: var(--accent-gold);
+    border-right: 3px solid #C0A060;
+    align-self: flex-end;
+    max-width: 85%;
+}
+
+/* Input area styling */
+#chatbot-input-area {
+    display: flex;
+    gap: 8px;
+    padding: 12px;
+    border-top: 1px solid rgba(192, 160, 96, 0.2);
+    background: rgba(20, 18, 22, 0.8);
+}
+
+#user-input {
+    flex: 1;
+    background: rgba(80, 60, 90, 0.5);
+    border: 1px solid #6C4675;
+    border-radius: 8px;
+    color: var(--text-white);
+    padding: 8px 12px;
+    font-size: 0.9rem;
+    transition: all 0.3s ease;
+}
+
+#user-input:focus {
+    outline: none;
+    border-color: #C0A060;
+    background: rgba(80, 60, 90, 0.7);
+    box-shadow: 0 0 8px rgba(192, 160, 96, 0.2);
+}
+
+#user-input::placeholder {
+    color: rgba(214, 207, 199, 0.5);
+}
+
+#chatbot-input-area button {
+    background: linear-gradient(135deg, #6C4675 0%, #8B5E9C 100%);
+    border: 1px solid #C0A060;
+    color: var(--accent-gold);
+    padding: 8px 16px;
+    border-radius: 8px;
+    cursor: pointer;
+    font-weight: bold;
+    transition: all 0.3s ease;
+    font-size: 0.85rem;
+}
+
+#chatbot-input-area button:hover {
+    background: linear-gradient(135deg, #8B5E9C 0%, #6C4675 100%);
+    box-shadow: 0 0 12px rgba(192, 160, 96, 0.3);
+    transform: translateY(-1px);
+}
+
+
+
+/* ============================================================= */
+/* RESPONSIVE DESIGN: Media Queries */
+/* ============================================================= */
+
+/* iPad/Tablet - Landscape & Portrait (1024px and below) */
+@media (max-width: 1024px) {
+    .hero-title {
+        font-size: clamp(2.5rem, 8vw, 6rem);
+    }
+    
+    .start-btn {
+        padding: 11px 28px;
+        font-size: 0.95rem;
+        margin-top: 25px;
+    }
+    
+    #satyr-trigger img {
+        width: clamp(70px, 12vw, 140px);
+    }
+    
+    #chatbot-container {
+        right: 10px;
+        bottom: 15px;
+    }
+    
+    #chatbot-window {
+        width: clamp(220px, 25vw, 300px);
+        max-height: 65vh;
+    }
+}
+
+/* Small Tablets & Larger Phones (768px and below) */
+@media (max-width: 768px) {
+    body, html {
+        min-height: 100vh;
+    }
+    
+    .hero-title {
+        font-size: clamp(2rem, 7vw, 5rem);
+        letter-spacing: -2px;
+    }
+    
+    .hero-description {
+        font-size: 1rem;
+    }
+    
+    .start-btn {
+        padding: 10px 24px;
+        font-size: 0.9rem;
+        margin-top: 20px;
+    }
+    
+    #satyr-trigger img {
+        width: clamp(100px, 14vw, 130px);
+    }
+    
+    #chatbot-container {
+        left: 50%;
+        right: auto;
+        transform: translateX(-50%);
+        bottom: 10px;
+        align-items: center;
+    }
+    
+    #chatbot-window {
+        width: clamp(240px, 85vw, 290px);
+        max-height: 60vh;
+        height: auto;
+    }
+}
+
+/* Mobile - Small Phones (480px and below) */
+@media (max-width: 480px) {
+    body, html {
+        min-height: 100vh;
+        width: 100%;
+        overflow-x: hidden;
+    }
+    
+    #hud {
+        height: 45px;
+        padding: 0 15px;
+    }
+    
+    .grape-display {
+        font-size: 1rem;
+    }
+    
+    .hero-container {
+        padding-top: 0;
+    }
+    
+    .hero-title {
+        font-size: clamp(1.8rem, 6vw, 3rem);
+        letter-spacing: -1px;
+    }
+    
+    .hero-subtitle {
+        font-size: 0.85rem;
+        letter-spacing: 2px;
+    }
+    
+    .hero-description {
+        font-size: 0.95rem;
+        max-width: 95%;
+    }
+    
+    .start-btn {
+        padding: 9px 20px;
+        font-size: 0.8rem;
+        margin-top: 15px;
+    }
+    
+    #satyr-trigger img {
+        width: clamp(75px, 12vw, 110px);
+    }
+    
+    #chatbot-container {
+        left: 50%;
+        right: auto;
+        transform: translateX(-50%);
+        bottom: 8px;
+        align-items: center;
+        max-width: 95vw;
+    }
+    
+    #chatbot-window {
+        width: clamp(240px, 90vw, 280px);
+        max-height: 55vh;
+        height: auto;
+    }
+    
+    #chatbot-history p {
+        font-size: 0.85rem;
+        padding: 6px 10px;
+    }
+    
+    #user-input {
+        font-size: 0.85rem;
+        padding: 6px 10px;
+    }
+    
+    #chatbot-input-area button {
+        font-size: 0.75rem;
+        padding: 6px 12px;
+    }
+}
