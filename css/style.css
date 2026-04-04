@@ -1,9 +1,8 @@
-/* 1. 字体与基础设置 */
-@font-face {
+/*@font-face {
     font-family: 'Cathdra';
-    /* 确保文件名与你文件夹里的完全一致，注意大小写和空格 */
-    src: url('fonts/IT Cathdra Demo.otf') format('opentype');
-}
+    src: url('../fonts/IT Cathdra Demo.otf') format('opentype');
+    font-display: swap;
+}*/
 
 @import url('https://fonts.googleapis.com/css2?family=Playfair+Display:ital@0;1&display=swap');
 @import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600;700&display=swap');
@@ -293,7 +292,6 @@ body, html {
 }
 
 .hero-title {
-    font-family: 'Cathdra', serif;
     color: var(--accent-gold);
     font-size: clamp(3rem, 10vw, 8rem);
     font-weight: 900;

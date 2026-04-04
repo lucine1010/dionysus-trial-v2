@@ -50,10 +50,10 @@ const ROLEPLAY1_AUDIO = {
     party: "audio/bgm/party/party1+2.m4a",
     flashback1: "audio/bgm/flashback/flashback1-1.m4a",
     flashback2: "audio/bgm/flashback/flashback2-1.m4a",
-    flashback3: "audio/bgm/flashback/flashback3-1&2.m4a",
-    corridor: "audio/bgm/corridor/corridor2.m4a",
+    flashback3: "audio/bgm/flashback/flashback3bgm.m4a",
+    corridor: "audio/bgm/ending/empty classroom.m4a",
     nextday: "audio/bgm/nextday/nextday2+3.m4a",
-    nextday_tension: "audio/bgm/nextday/nextday4.m4a"
+    nextday_tension: "audio/bgm/nextday/nextday2+3.m4a"
   },
 
   sfx: {
@@ -68,7 +68,7 @@ const ROLEPLAY1_AUDIO = {
     flashback1_3: "audio/sfx/flashback/flashback1-3.mp3",
     transition2: "audio/sfx/flashback/transition2.m4a",
 
-    corridor1: "audio/sfx/corridor/corridor1.mp3",
+    corridor1: "audio/sfx/corridor/footstep.mov",
     corridor3: "audio/sfx/corridor/corridor3.m4a",
 
     nextday1: "audio/sfx/nextday/nextday1.mp3"
@@ -93,8 +93,7 @@ function unlockAudioAndResume() {
   if (currentPendingBgmKey) {
     const pendingKey = currentPendingBgmKey;
     const pendingVolume = currentPendingBgmVolume;
-    currentPendingBgmKey = null;
-    playBgm(pendingKey, pendingVolume);
+    playBgm(pendingKey, pendingVolume, true);
   }
 }
 
@@ -135,24 +134,29 @@ function stopAllSfx() {
   currentSfxList = [];
 }
 
-function playBgm(key, volume = 0.32) {
+function playBgm(key, volume = 0.32, forceRetry = false) {
   if (!key || !ROLEPLAY1_AUDIO.bgm[key]) return;
-  if (currentBgmKey === key) return;
+
+  // 只有不是强制重试时，才拦截同 key 重复播放
+  if (!forceRetry && currentBgmKey === key && currentBgm) return;
 
   currentPendingBgmKey = key;
   currentPendingBgmVolume = volume;
 
   stopCurrentBgm();
 
-  currentBgm = createAudio(ROLEPLAY1_AUDIO.bgm[key], true, volume);
-  currentBgmKey = key;
+  const nextBgm = createAudio(ROLEPLAY1_AUDIO.bgm[key], true, volume);
 
-  currentBgm.play()
+  nextBgm.play()
     .then(() => {
+      currentBgm = nextBgm;
+      currentBgmKey = key;
       currentPendingBgmKey = null;
     })
     .catch(err => {
       console.warn("BGM autoplay blocked:", err);
+      currentBgm = null;
+      currentBgmKey = null;
     });
 }
 
@@ -185,15 +189,17 @@ function playSfx(key, volume = 0.65, delay = 0) {
 ========================= */
 
 function handleNodeAudio(nodeId) {
-  // PARTY START
-  if (nodeId === "rp1_01_party_intro") {
-    stopAllSfx();
-    playBgm("party", 0.28);
-  }
+// PARTY START
+if (nodeId === "rp1_01_party_intro") {
+  stopAllSfx();
+  playBgm("party", 0.28);
+}
 
-  if (nodeId === "rp1_02_satyr_push") {
-    playSfx("party3", 0.55);
-  }
+// fallback: if browser blocked the first autoplay attempt,
+// start the party BGM again on the first real interaction node
+if (nodeId === "rp1_02_satyr_push") {
+  playSfx("party3", 0.55);
+}
 
   if (nodeId === "rp1_04_apollo_smashes") {
     stopAllSfx();
@@ -323,6 +329,12 @@ function runRoleplayNode(nodeId) {
     expression: node.expression,
     form: node.form || "human",
     hidePortraits: !!node.hidePortraits,
+
+    apolloForm: node.apolloForm,
+    apolloExpression: node.apolloExpression,
+    dionForm: node.dionForm,
+    dionExpression: node.dionExpression,
+
     apolloPortrait,
     dionPortrait,
     apolloImg,
@@ -402,6 +414,12 @@ function updatePortraits({
   expression,
   form,
   hidePortraits,
+
+  apolloForm,
+  apolloExpression,
+  dionForm,
+  dionExpression,
+
   apolloPortrait,
   dionPortrait,
   apolloImg,
@@ -409,6 +427,26 @@ function updatePortraits({
 }) {
   if (!apolloPortrait || !dionPortrait || !apolloImg || !dionImg) return;
 
+  // 1. 先处理“这个节点是否要强制更新两个人的图”
+  if (apolloForm || apolloExpression) {
+    const apolloPath = getImagePath(
+      "APOLLO",
+      apolloForm || "human",
+      apolloExpression || "normal"
+    );
+    if (apolloPath) apolloImg.src = apolloPath;
+  }
+
+  if (dionForm || dionExpression) {
+    const dionPath = getImagePath(
+      "DION",
+      dionForm || "human",
+      dionExpression || "normal"
+    );
+    if (dionPath) dionImg.src = dionPath;
+  }
+
+  // 2. narration 隐藏人物
   if (hidePortraits) {
     apolloPortrait.classList.add("roleplay-hidden");
     dionPortrait.classList.add("roleplay-hidden");
@@ -418,6 +456,7 @@ function updatePortraits({
   apolloPortrait.classList.remove("roleplay-hidden");
   dionPortrait.classList.remove("roleplay-hidden");
 
+  // 3. 当前说话者仍然按原逻辑更新自己的图
   if (speaker === "APOLLO") {
     const imgPath = getImagePath("APOLLO", form, expression);
     if (imgPath) apolloImg.src = imgPath;
@@ -437,6 +476,7 @@ function updatePortraits({
     apolloPortrait.classList.add("dim");
     apolloPortrait.classList.remove("active");
   } else {
+    // NPC / NARRATION 可见时，两边都只显示 dim
     apolloPortrait.classList.add("dim");
     apolloPortrait.classList.remove("active");
 

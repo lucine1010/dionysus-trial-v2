@@ -452,7 +452,7 @@
     }
 
     #quest4 .narrative-box {
-        width: min(54vw, 440px);
+        width: min(54vw, 480px);
         max-width: 100%;
         padding: 10px 12px !important;
         margin: 2px 0;

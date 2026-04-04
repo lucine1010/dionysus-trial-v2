@@ -57,6 +57,10 @@ const roleplay1Data = {
     background: "backgrounds/5.png",
     speaker: "NARRATION",
     hidePortraits: true,
+      apolloForm: "god",
+  apolloExpression: "normal",
+  dionForm: "god",
+  dionExpression: "normal",
     text: "Memory tears open beneath the noise.",
     next: "rp1_07_flashback_1"
   },
@@ -251,7 +255,11 @@ const roleplay1Data = {
   rp1_26_back_to_party_transition: {
     background: "backgrounds/1.png",
     speaker: "NARRATION",
-    hidePortraits: true,
+      hidePortraits: true,
+  apolloForm: "human",
+  apolloExpression: "normal",
+  dionForm: "human",
+  dionExpression: "normal",
     text: "The dream snaps back into the ballroom.",
     next: "rp1_27_back_to_party"
   },

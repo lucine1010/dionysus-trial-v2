@@ -65,6 +65,10 @@ const happyEndingData = {
     background: "backgrounds/5.png",
     speaker: "NARRATION",
     hidePortraits: true,
+      apolloForm: "god",
+  apolloExpression: "normal",
+  dionForm: "god",
+  dionExpression: "normal",
     text: "The dream dissolves completely. The school fades away, and the divine realm opens once more.",
     next: "he_09_divine_walk"
   },
@@ -73,6 +77,10 @@ const happyEndingData = {
     background: "backgrounds/5.png",
     speaker: "NARRATION",
     hidePortraits: true,
+      apolloForm: "god",
+  apolloExpression: "normal",
+  dionForm: "god",
+  dionExpression: "normal",
     text: "Dion mounts his leopard smoothly. Apollo walks beside him. For the first time, their silence is not a wound.",
     next: "he_10_dion_no_smash"
   },
