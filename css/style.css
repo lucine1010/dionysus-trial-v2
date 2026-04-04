@@ -45,22 +45,137 @@ body, html {
 }
 
 .grape-display {
+    display: flex;
+    align-items: center;
+    gap: 8px;
     color: var(--accent-gold);
     font-size: 1.1rem;
     font-weight: bold;
     text-shadow: 0 0 8px rgba(192, 160, 96, 0.3);
 }
 
+.grape-icon {
+    width: 35px;
+    height: 35px;
+    object-fit: contain;
+    display: block;
+}
+
 
 
 /* 4. QUEST 1: CAMPUS 视觉修正 */
+#campus {
+    position: relative;
+    width: 100%;
+    min-height: 100vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+/* Strong old film flicker animation - opacity */
+@keyframes filmFlicker {
+    0%, 100% { opacity: 1; }
+    3% { opacity: 0.85; }
+    5% { opacity: 1; }
+    8% { opacity: 0.92; }
+    12% { opacity: 1; }
+    15% { opacity: 0.88; }
+    18% { opacity: 0.95; }
+    22% { opacity: 1; }
+    30% { opacity: 0.90; }
+    35% { opacity: 1; }
+    40% { opacity: 0.93; }
+    50% { opacity: 1; }
+    60% { opacity: 0.87; }
+    70% { opacity: 1; }
+    80% { opacity: 0.91; }
+    90% { opacity: 0.94; }
+}
+
+/* Stronger film jitter animation - more visible shake */
+@keyframes filmJitter {
+    0%, 100% { transform: translate(0, 0) rotate(0deg); }
+    5% { transform: translate(1.5px, -1.2px) rotate(0.3deg); }
+    10% { transform: translate(-1.8px, 1.5px) rotate(-0.2deg); }
+    15% { transform: translate(1.2px, 1.8px) rotate(0.25deg); }
+    20% { transform: translate(-1.5px, -1.5px) rotate(-0.3deg); }
+    25% { transform: translate(1.8px, -1px) rotate(0.15deg); }
+    30% { transform: translate(-1.2px, 1.2px) rotate(-0.2deg); }
+    50% { transform: translate(0, 0) rotate(0deg); }
+    60% { transform: translate(-1.5px, 0.8px) rotate(-0.1deg); }
+    70% { transform: translate(1.2px, -1.5px) rotate(0.2deg); }
+    80% { transform: translate(-1px, 1px) rotate(-0.15deg); }
+    90% { transform: translate(1.5px, -0.8px) rotate(0.1deg); }
+}
+
+/* Brightness flicker for extra instability */
+@keyframes filmBrightnessFlicker {
+    0%, 100% { filter: brightness(1); }
+    8% { filter: brightness(1.08); }
+    16% { filter: brightness(0.92); }
+    25% { filter: brightness(1); }
+    40% { filter: brightness(1.05); }
+    55% { filter: brightness(0.95); }
+    70% { filter: brightness(1); }
+    85% { filter: brightness(1.03); }
+}
+
+/* Analog interference effect - subtle horizontal glitch */
+@keyframes analogInterference {
+    0%, 100% { opacity: 1; }
+    20% { opacity: 0.98; }
+    25% { opacity: 1; }
+    45% { opacity: 0.97; }
+    50% { opacity: 1; }
+    70% { opacity: 0.99; }
+    75% { opacity: 1; }
+}
+
+/* Film grain shift animation */
+@keyframes filmGrainShift {
+    0% { transform: translate(0, 0); }
+    100% { transform: translate(4px, 4px); }
+}
+
 .campus-bg {
     position: absolute;
     top: 0; left: 0; width: 100%; height: 100%;
-    background: url('img/1_draft.jpg') no-repeat center center;
+    background: url('../backgrounds/1.png') no-repeat center center;
     background-size: cover;
     filter: sepia(0.2) hue-rotate(250deg) brightness(0.7);
     z-index: 1;
+    animation: filmBrightnessFlicker 3.2s infinite;
+}
+
+/* Old film vignette effect - STRONGER */
+.campus-bg::after {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: 
+        repeating-linear-gradient(
+            0deg,
+            rgba(0, 0, 0, 0.03) 0px,
+            rgba(0, 0, 0, 0.03) 2px,
+            transparent 2px,
+            transparent 4px
+        ),
+        radial-gradient(ellipse at center, transparent 30%, rgba(0, 0, 0, 0.35) 100%);
+    pointer-events: none;
+    z-index: 3;
+    animation: vignetteFlicker 5s infinite;
+}
+
+/* Vignette flicker for extra atmosphere */
+@keyframes vignetteFlicker {
+    0%, 100% { opacity: 1; }
+    25% { opacity: 0.98; }
+    50% { opacity: 1.02; }
+    75% { opacity: 0.99; }
 }
 
 .overlay {
@@ -70,17 +185,89 @@ body, html {
     z-index: 2;
 }
 
+/* Old film grain overlay - MUCH MORE VISIBLE */
+.overlay::after {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-image: 
+        repeating-linear-gradient(
+            0deg,
+            rgba(0, 0, 0, 0.12) 0px,
+            rgba(0, 0, 0, 0.12) 2px,
+            transparent 2px,
+            transparent 4px
+        ),
+        repeating-linear-gradient(
+            90deg,
+            rgba(255, 255, 255, 0.08) 0px,
+            rgba(255, 255, 255, 0.08) 1px,
+            transparent 1px,
+            transparent 3px
+        ),
+        radial-gradient(ellipse 60px 40px at 20% 30%, rgba(255, 200, 100, 0.05), transparent),
+        radial-gradient(ellipse 80px 60px at 80% 70%, rgba(200, 150, 100, 0.03), transparent);
+    pointer-events: none;
+    z-index: 1;
+    animation: filmGrainShift 0.08s infinite, filmDustFlicker 4s infinite, analogInterference 2.5s infinite;
+}
+
+/* Film dust and scratch animation */
+@keyframes filmDustFlicker {
+    0%, 100% { opacity: 1; }
+    20% { opacity: 0.98; }
+    40% { opacity: 1.02; }
+    60% { opacity: 0.97; }
+    80% { opacity: 1.01; }
+}
+
+/* Film scratches overlay - horizontal and vertical lines */
+.overlay::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-image:
+        repeating-linear-gradient(
+            90deg,
+            transparent 0px,
+            transparent 4px,
+            rgba(100, 80, 120, 0.08) 4px,
+            rgba(100, 80, 120, 0.08) 5px
+        ),
+        repeating-linear-gradient(
+            0deg,
+            transparent 0px,
+            transparent 8px,
+            rgba(150, 100, 180, 0.05) 8px,
+            rgba(150, 100, 180, 0.05) 9px
+        );
+    pointer-events: none;
+    z-index: 1;
+    animation: filmScratchShift 2.5s infinite;
+}
+
+/* Film scratches moving effect */
+@keyframes filmScratchShift {
+    0%, 100% { transform: translateY(0); }
+    50% { transform: translateY(-2px); }
+}
+
 /* CAMPUS HERO SECTION: Dark Baroque/Gothic Aesthetic */
 .hero-container {
     position: relative;
     z-index: 50;
     width: 100%;
-    height: 100%;
     display: flex;
     align-items: center;
     justify-content: center;
     flex-direction: column;
-    padding-top: 50px;
+    margin-top: -50px;
 }
 
 .hero-content {
@@ -467,5 +654,129 @@ body, html {
     #chatbot-input-area button {
         font-size: 0.75rem;
         padding: 6px 12px;
+    }
+}
+
+/* =========================================
+   MOBILE LANDSCAPE - HOME PAGE
+========================================= */
+ @media (max-width: 932px) and (orientation: landscape) {
+    html, body {
+        min-height: 100dvh;
+        height: auto;
+        overflow-x: hidden;
+    }
+
+    #hud {
+        height: 40px;
+        padding: 0 12px;
+    }
+
+    .grape-display {
+        font-size: 0.9rem;
+    }
+
+    #campus {
+        min-height: 100dvh;
+        padding-top: 40px;
+        box-sizing: border-box;
+    }
+
+    .hero-container {
+        margin-top: 0;
+        min-height: calc(100dvh - 40px);
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        padding: 10px 12px 58px;
+        box-sizing: border-box;
+    }
+
+    .hero-content {
+        gap: 10px;
+        max-width: 62vw;
+        width: 100%;
+        align-items: center;
+        justify-content: center;
+        text-align: center;
+        margin: 0 auto;
+    }
+
+    .hero-subtitle {
+        font-size: 0.68rem;
+        letter-spacing: 1.8px;
+        line-height: 1.2;
+    }
+
+    .hero-title {
+        font-size: clamp(1.9rem, 5.2vw, 3.4rem);
+        line-height: 0.94;
+        letter-spacing: -1px;
+        margin: 0;
+    }
+
+    .hero-description {
+        font-size: 0.82rem;
+        max-width: 100%;
+        line-height: 1.3;
+    }
+
+    .start-btn {
+        margin-top: 8px;
+        padding: 8px 16px;
+        font-size: 0.72rem;
+        letter-spacing: 1px;
+    }
+
+    #chatbot-container {
+        right: 8px;
+        left: auto;
+        transform: none;
+        bottom: 6px;
+        max-width: 26vw;
+        align-items: flex-end;
+    }
+
+    #chatbot-window {
+        width: min(210px, 24vw);
+        max-width: 24vw;
+        max-height: 46dvh;
+        border-radius: 12px;
+        margin-bottom: 4px;
+    }
+
+    #chatbot-header {
+        padding: 8px;
+        font-size: 0.72rem;
+    }
+
+    #chatbot-history {
+        padding: 8px;
+        gap: 5px;
+    }
+
+    #chatbot-history p {
+        font-size: 0.68rem;
+        line-height: 1.24;
+        padding: 5px 7px;
+    }
+
+    #chatbot-input-area {
+        padding: 6px;
+        gap: 5px;
+    }
+
+    #user-input {
+        font-size: 0.68rem;
+        padding: 5px 6px;
+    }
+
+    #chatbot-input-area button {
+        font-size: 0.64rem;
+        padding: 5px 8px;
+    }
+
+    #satyr-trigger img {
+        width: clamp(40px, 5vw, 56px);
     }
 }

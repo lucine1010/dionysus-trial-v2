@@ -3,66 +3,41 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Ending 2</title>
-  <style>
-    body {
-      margin: 0;
-      min-height: 100vh;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      background: linear-gradient(to bottom, #08090f, #1b0f1f);
-      color: #f5e6b8;
-      font-family: Georgia, serif;
-      text-align: center;
-    }
+  <title>Dionysus: Trapped Ending</title>
 
-    .ending-card {
-      width: 80%;
-      max-width: 700px;
-      padding: 50px 30px;
-      background: rgba(12, 8, 20, 0.84);
-      border: 1px solid #c9a85d;
-      border-radius: 20px;
-      box-shadow: 0 0 30px rgba(0, 0, 0, 0.35);
-    }
-
-    h1 {
-      font-size: 2.6rem;
-      margin-bottom: 20px;
-      letter-spacing: 1px;
-    }
-
-    p {
-      font-size: 1.1rem;
-      line-height: 1.8;
-      margin-bottom: 30px;
-      color: #f7f1df;
-    }
-
-    a {
-      display: inline-block;
-      padding: 12px 24px;
-      border: 1px solid #c9a85d;
-      border-radius: 999px;
-      color: #f5e6b8;
-      text-decoration: none;
-      transition: 0.25s ease;
-    }
-
-    a:hover {
-      background: rgba(201, 168, 93, 0.18);
-    }
-  </style>
+  <link rel="stylesheet" href="css/style.css" />
+  <link rel="stylesheet" href="css/roleplay.css" />
 </head>
 <body>
-  <div class="ending-card">
-    <h1>Ending Two</h1>
-    <p>
-      Dionysus keeps moving, but the boundary between dream and reality is gone.
-      The trial never truly ends. It only loops in another form.
-    </p>
-    <a href="index.html">Return to the Beginning</a>
-  </div>
+  <nav id="hud">
+    <div class="grape-display">
+      <img src="img/icons8-grape-60.png" alt="Grape icon" class="grape-icon">
+      <span>Grapes: <span id="grape-count">5</span>/5</span>
+    </div>
+  </nav>
+
+  <section id="quest2" class="page">
+    <div class="roleplay-screen">
+      <div class="portrait left active" id="apollo-portrait">
+        <img src="roleplay1/A-normal.png" id="apollo-img" alt="Apollo" />
+      </div>
+
+      <div class="portrait right dim" id="dion-portrait">
+        <img src="roleplay1/D-normal.png" id="dion-img" alt="Dionysus" />
+      </div>
+
+      <div class="dialogue-footer">
+        <div class="name-tag cathdra" id="speaker-name">NARRATION</div>
+        <div class="dialogue-content">
+          <p id="apollo-text"></p>
+          <div id="apollo-choices" class="choices-container"></div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <script src="js/ending-trapped-data.js"></script>
+  <script src="js/roleplay-engine.js"></script>
+  <script src="js/ending-trapped.js"></script>
 </body>
 </html>

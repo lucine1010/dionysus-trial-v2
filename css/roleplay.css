@@ -36,8 +36,8 @@
   position: absolute;
   bottom: 0;
   width: auto;
-  height: 85vh;
-  max-width: 32vw;
+  height: 89vh;
+  max-width: 36vw;
   transition: all 0.35s ease;
   z-index: 6;
   pointer-events: none;
@@ -98,7 +98,7 @@
   transform: translateX(-50%);
   width: min(650px, 62vw);
   min-height: 120px;
-  background: rgba(16, 18, 28, 0.9);
+  background: rgba(16, 18, 28, 0.82);
   border: 1.5px solid rgba(205, 169, 96, 0.85);
   border-radius: 22px;
   padding: 13px 16px 13px;
@@ -112,8 +112,8 @@
 .name-tag {
   position: relative;
   z-index: 31;
-  margin-bottom: 8px;
-  font-size: 1.75rem;
+  margin-bottom: 10px;
+  font-size: 2.1rem;
   letter-spacing: 2px;
   text-transform: uppercase;
   color: #cda960;
@@ -134,10 +134,10 @@
   position: relative;
   z-index: 32;
   margin: 0;
-  min-height: 52px;
+  min-height: 62px;
   color: #f5f1e8 !important;
-  font-size: 0.95rem !important;
-  line-height: 1.65 !important;
+  font-size: 1.08rem !important;
+  line-height: 1.75 !important;
   font-weight: 400;
   letter-spacing: 0.2px;
   text-align: left;
@@ -168,10 +168,10 @@
   border: 1px solid rgba(205, 169, 96, 0.78);
   background: rgba(205, 169, 96, 0.1);
   color: #f8f4ea;
-  padding: 10px 16px;
+  padding: 11px 18px;
   border-radius: 999px;
   cursor: pointer;
-  font-size: 0.92rem;
+  font-size: 0.98rem;
   line-height: 1.35;
   transition: all 0.22s ease;
 }
@@ -324,5 +324,78 @@
   .dialogue-btn {
     font-size: 0.72rem;
     padding: 7px 11px;
+  }
+}
+
+/* =========================================
+   MOBILE LANDSCAPE - ROLEPLAY
+========================================= */
+@media (max-width: 932px) and (orientation: landscape) {
+  #quest2 {
+    min-height: 100dvh;
+  }
+
+  .roleplay-screen {
+    min-height: 100dvh;
+  }
+
+  .portrait {
+    height: 80vh;
+    max-width: 35vw;
+  }
+
+  .portrait.left {
+    left: 50%;
+  }
+
+  .portrait.right {
+    right: 50%;
+  }
+
+  .portrait.left.active {
+    transform: translateX(calc(-100% - 16px)) scale(1.01);
+  }
+
+  .portrait.left.dim {
+    transform: translateX(calc(-100% - 16px)) scale(0.98);
+  }
+
+  .portrait.right.active {
+    transform: translateX(calc(100% + 16px)) scale(1.01);
+  }
+
+  .portrait.right.dim {
+    transform: translateX(calc(100% + 16px)) scale(0.98);
+  }
+
+  .dialogue-footer {
+    width: min(760px, 78vw);
+    min-height: 110px;
+    bottom: 2vh;
+    padding: 12px 16px;
+    border-radius: 16px;
+  }
+
+  .name-tag {
+    font-size: 1.2rem;
+    margin-bottom: 6px;
+    letter-spacing: 1px;
+  }
+
+  #apollo-text {
+    font-size: 0.9rem !important;
+    line-height: 1.5 !important;
+    min-height: 48px;
+  }
+
+  .choices-container {
+    gap: 7px;
+    margin-top: 10px;
+  }
+
+  .dialogue-btn {
+    font-size: 0.78rem;
+    padding: 7px 11px;
+    line-height: 1.25;
   }
 }

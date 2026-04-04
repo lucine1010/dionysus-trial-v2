@@ -11,7 +11,7 @@
 </head>
 <body>
   <nav id="hud">
-    <div class="grape-display">🍇 Grapes: <span id="grape-count">0</span>/5</div>
+    <div class="grape-display"><img src="img/icons8-grape-60.png" alt="Grape icon" class="grape-icon" style="height: 24px; width: 24px; margin-right: 4px; vertical-align: middle;"> <span>Grapes: <span id="grape-count">0</span>/5</div>
   </nav>
 
   <!-- QUEST 2: ROLEPLAY 1 -->
@@ -41,8 +41,8 @@
       <h1 class="cathdra">THE LABYRINTH</h1>
 
       <div class="fragment-container">
-        <img src="img/leopard.png" alt="Leopard" class="floating-pixel" />
-        <img src="img/fragment.png" alt="Fragment" class="floating-pixel delay" />
+        <img src="ui/fragment (1).png" alt="Leopard" class="floating-pixel" />
+        <img src="ui/Leopard (13).png" alt="Fragment" class="floating-pixel delay" />
       </div>
 
       <div class="narrative-box">
@@ -51,47 +51,32 @@
       </div>
 
       <div class="action-area">
-        <button class="gate-btn" onclick="alert('Unity AR Link goes here!')">LAUNCH AR EXPERIENCE</button>
-        <button class="debug-btn" onclick="navigateTo('quest4')">SKIP TO QUEST 4</button>
+        <button class="gate-btn" onclick="completeQuest3(); navigateTo('quest4')">LAUNCH AR EXPERIENCE</button>
+        <button class="debug-btn" onclick="completeQuest3(); navigateTo('quest4')">CONTINUE TO VR</button>
       </div>
     </div>
   </section>
 
-  <!-- QUEST 4 -->
   <section id="quest4" class="page hidden">
-    <div class="content">
-      <h1 class="cathdra">DIVINE ALLIANCE</h1>
-      <div class="puzzle-area">
-        <img src="img/puzzle.png" alt="Alliance Puzzle" class="puzzle-img" />
-      </div>
-      <div class="narrative-box">
-        <p>"The logic of the sun and the passion of the vine... finally aligned."</p>
-        <p>You and Apollo have pieced together the cure. The dream begins to stabilize.</p>
-      </div>
-      <div class="action-area">
-        <button class="gate-btn" onclick="alert('Preparing VR experience...')">WAKE UP (PROCEED TO VR)</button>
-        <button class="debug-btn" onclick="navigateTo('quest5')">SKIP TO QUEST 5</button>
-      </div>
-    </div>
-  </section>
+  <div class="content">
+    <h1 class="cathdra">DIVINE ALLIANCE</h1>
 
-  <!-- QUEST 5 -->
-  <section id="quest5" class="page hidden">
-    <div class="content">
-      <h1 class="cathdra">THE AWAKENING</h1>
-      <p>The rain of clarity begins to fall...</p>
-      <button class="debug-btn" onclick="navigateTo('ending')">End Trial</button>
+    <div class="puzzle-area">
+      <img src="img/SWLP0pApkXPGlpO7pIhzo.png" alt="VR gateway" class="puzzle-img" />
     </div>
-  </section>
 
-  <!-- ENDING -->
-  <section id="ending" class="page hidden">
-    <div class="content">
-      <h1 class="cathdra">ZEUS'S TRIAL ENDED</h1>
-      <p>You have passed the test, Dionysus.</p>
-      <a href="index.html" class="gate-btn">RESTART TRIAL</a>
+    <div class="narrative-box">
+      <p>"The path is not yet complete. Step beyond the maze and enter the next trial."</p>
+      <p><strong>MISSION:</strong> Enter the VR experience and continue your journey.</p>
     </div>
-  </section>
+
+    <div class="action-area">
+      <button class="gate-btn">LAUNCH VR EXPERIENCE</button>
+    </div>
+  </div>
+</section>
+
+
 
   <script src="js/roleplay1-data.js"></script>
   <script src="js/roleplay-engine.js"></script>

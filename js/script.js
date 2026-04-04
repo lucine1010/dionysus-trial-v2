@@ -1,7 +1,68 @@
 /**
  * Project 2: Dionysus - The Dream Trial
  * Homepage & Chatbot Logic (index.html)
+ * GRAPE PROGRESSION SYSTEM - Centralized Management
  */
+
+/* ========================================
+   GRAPE MANAGEMENT UTILITY FUNCTIONS
+   ======================================== */
+
+/**
+ * Get current grape count from localStorage
+ */
+function getGrapes() {
+    const saved = localStorage.getItem('grapes');
+    return saved ? parseInt(saved) : 0;
+}
+
+/**
+ * Set grape count to a specific value
+ */
+function setGrapes(count) {
+    const maxGrapes = 5;
+    const newCount = Math.min(Math.max(count, 0), maxGrapes);
+    localStorage.setItem('grapes', newCount);
+    updateGrapeDisplay();
+    return newCount;
+}
+
+/**
+ * Add one grape to current count (max 5)
+ */
+function addGrape() {
+    const current = getGrapes();
+    if (current < 5) {
+        return setGrapes(current + 1);
+    }
+    return current;
+}
+
+/**
+ * Update all visible grape-count elements on page
+ */
+function updateGrapeDisplay() {
+    const count = getGrapes();
+    const grapeElements = document.querySelectorAll('#grape-count');
+    grapeElements.forEach(el => {
+        el.innerText = count;
+    });
+}
+
+/**
+ * Unlock grape at specific progression step (used to ensure grape count matches story point)
+ */
+function unlockGrape(step) {
+    const current = getGrapes();
+    // step: 1=chatbot, 2=roleplay1, 3=maze, 4=vr, 5=ending
+    if (step > current) {
+        setGrapes(step);
+    }
+}
+
+/* ========================================
+   HOMEPAGE INITIALIZATION
+   ======================================== */
 
 let grapes = 0;
 
@@ -14,14 +75,10 @@ window.onload = function() {
         campusSection.classList.add('active');
     }
     
-    // Load grapes from localStorage
-    const savedGrapes = localStorage.getItem('grapes');
-    if (savedGrapes) {
-        grapes = parseInt(savedGrapes);
-        document.getElementById('grape-count').innerText = grapes;
-    } else {
-        document.getElementById('grape-count').innerText = '0';
-    }
+    // Reset grapes to 0 for new playthrough (home page is always fresh start)
+    grapes = 0;
+    localStorage.setItem('grapes', 0);
+    updateGrapeDisplay();
     
     // Show chatbot on homepage
     const chatbotContainer = document.getElementById('chatbot-container');
@@ -54,9 +111,9 @@ function sendMessage() {
 
     setTimeout(() => {
         if (text === "YES" || text === "INVITE ME") {
-            appendBotMessage("I knew you had the spirit! Here is your first **Grape 🍇**.");
+            appendBotMessage("I knew you had the spirit! Here is your first **Grape** <img src='img/icons8-grape-60.png' alt='Grape' style='height: 20px; vertical-align: middle; margin: 0 4px;'>.");
             appendBotMessage("Now, listen: your guide is waiting. Click **BEGIN THE TRIAL** when you're ready!");
-            updateGrapes();
+            unlockGrape(1); // Award grape 1 for chatbot completion
         } else {
             appendBotMessage("What? The music is so loud! Just say **YES** if you want to join the dream!");
         }
@@ -82,19 +139,9 @@ function appendUserMessage(text) {
     history.scrollTop = history.scrollHeight;
 }
 
-function updateGrapes() {
-    if(grapes < 5) {
-        grapes++;
-        document.getElementById('grape-count').innerText = grapes;
-        localStorage.setItem('grapes', grapes);
-    }
-}
-
 // Optional: Reset function if needed
 function resetProgress() {
-    grapes = 0;
-    localStorage.removeItem('grapes');
-    document.getElementById('grape-count').innerText = '0';
+    setGrapes(0);
     document.getElementById('chatbot-history').innerHTML = '';
     document.getElementById('user-input').value = '';
     autoGreeting();

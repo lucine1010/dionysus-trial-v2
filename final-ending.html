@@ -1,0 +1,288 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Dionysus: Zeus's Trial</title>
+
+  <link rel="stylesheet" href="css/style.css" />
+
+<style>
+  body {
+    margin: 0;
+    min-height: 100vh;
+    background:
+      linear-gradient(rgba(10, 9, 12, 0.1), rgba(10, 9, 12, 0.22)),
+      url("backgrounds/9.png") no-repeat center center;
+    background-size: cover;
+    background-attachment: fixed;
+    color: var(--text-white);
+    overflow-x: hidden;
+  }
+
+  .final-ending-shell {
+    min-height: 100vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 80px 20px 30px;
+    box-sizing: border-box;
+  }
+
+  .final-ending-card {
+    width: min(860px, 92vw);
+    background: rgba(16, 18, 28, 0.66);
+    border: 1.5px solid rgba(205, 169, 96, 0.95);
+    border-radius: 24px;
+    padding: 30px 32px;
+    box-shadow: 0 12px 40px rgba(0, 0, 0, 0.38);
+    backdrop-filter: blur(8px);
+    text-align: center;
+    box-sizing: border-box;
+  }
+
+  .final-kicker {
+    margin: 0 0 10px 0;
+    color: var(--accent-gold);
+    font-family: 'Montserrat', sans-serif;
+    font-size: 0.85rem;
+    font-weight: 700;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+  }
+
+  .final-title {
+    margin: 0 0 18px 0;
+    font-family: 'Playfair Display', serif;
+    font-size: clamp(2.2rem, 5vw, 4rem);
+    line-height: 1.05;
+    color: var(--accent-gold);
+    text-shadow:
+      0 0 16px rgba(192, 160, 96, 0.32),
+      0 0 30px rgba(192, 160, 96, 0.12);
+  }
+
+  .final-text {
+    margin: 0 auto 16px auto;
+    max-width: 700px;
+    font-size: 1.02rem;
+    line-height: 1.72;
+    color: #f3eee6;
+  }
+
+  .final-highlight {
+    color: var(--accent-gold);
+    font-weight: 600;
+  }
+
+  .final-actions {
+    margin-top: 24px;
+    display: flex;
+    justify-content: center;
+  }
+
+  .final-btn {
+    display: inline-block;
+    text-decoration: none;
+    background: transparent;
+    border: 2px solid var(--accent-gold);
+    color: var(--accent-gold);
+    padding: 12px 24px;
+    font-family: 'Montserrat', sans-serif;
+    font-size: 0.82rem;
+    font-weight: 700;
+    letter-spacing: 1.5px;
+    text-transform: uppercase;
+    transition: 0.25s ease;
+  }
+
+  .final-btn:hover {
+    background: var(--accent-gold);
+    color: #000;
+  }
+
+  @media (max-width: 768px) {
+    body {
+      background:
+        linear-gradient(rgba(10, 9, 12, 0.1), rgba(10, 9, 12, 0.22)),
+        url("backgrounds/9.png") no-repeat center center;
+      background-size: cover;
+    }
+
+    .final-ending-shell {
+      padding: 72px 16px 18px;
+    }
+
+  .final-ending-card {
+    width: min(80vw, 680px);
+    padding: 18px 18px 16px;
+    border-radius: 18px;
+  }
+
+    .final-kicker {
+      font-size: 0.78rem;
+      letter-spacing: 1.8px;
+      margin-bottom: 8px;
+    }
+
+    .final-title {
+      font-size: clamp(1.8rem, 6vw, 2.7rem);
+      margin-bottom: 14px;
+    }
+
+    .final-text {
+      font-size: 0.92rem;
+      line-height: 1.58;
+      margin-bottom: 12px;
+      max-width: 100%;
+    }
+
+    .final-actions {
+      margin-top: 18px;
+    }
+
+    .final-btn {
+      padding: 10px 18px;
+      font-size: 0.74rem;
+      letter-spacing: 1.2px;
+    }
+  }
+
+  @media (max-width: 932px) and (orientation: landscape) {
+    body {
+      min-height: 100dvh;
+      background:
+        linear-gradient(rgba(10, 9, 12, 0.1), rgba(10, 9, 12, 0.22)),
+        url("backgrounds/9.png") no-repeat center center;
+      background-size: cover;
+      background-attachment: scroll;
+    }
+
+    .final-ending-shell {
+      min-height: 100dvh;
+      padding: 54px 14px 14px;
+      align-items: center;
+      justify-content: center;
+    }
+
+  .final-ending-card {
+    width: min(80vw, 680px);
+    padding: 18px 18px 16px;
+    border-radius: 18px;
+  }
+    .final-kicker {
+      margin-bottom: 6px;
+      font-size: 0.7rem;
+      letter-spacing: 1.8px;
+    }
+
+    .final-title {
+      font-size: clamp(1.5rem, 4vw, 2.1rem);
+      line-height: 1;
+      margin-bottom: 10px;
+    }
+
+    .final-text {
+      max-width: min(82vw, 760px);
+      font-size: 0.8rem;
+      line-height: 1.46;
+      margin: 0 auto 10px auto;
+    }
+
+    .final-actions {
+      margin-top: 12px;
+    }
+
+    .final-btn {
+      padding: 8px 16px;
+      font-size: 0.68rem;
+      letter-spacing: 1px;
+    }
+  }
+
+  @media (max-width: 480px) {
+    body {
+      background:
+        linear-gradient(rgba(10, 9, 12, 0.01), rgba(10, 9, 12, 0.1)),
+        url("backgrounds/9.png") no-repeat center center;
+      background-size: cover;
+    }
+
+    .final-ending-shell {
+      padding: 66px 12px 14px;
+    }
+
+  .final-ending-card {
+    width: min(80vw, 680px);
+    padding: 18px 18px 16px;
+    border-radius: 18px;
+  }
+
+    .final-kicker {
+      font-size: 0.68rem;
+      letter-spacing: 1.5px;
+    }
+
+    .final-title {
+      font-size: clamp(1.5rem, 6vw, 2rem);
+      margin-bottom: 10px;
+    }
+
+    .final-text {
+      font-size: 0.86rem;
+      line-height: 1.5;
+      margin-bottom: 10px;
+    }
+
+    .final-btn {
+      padding: 8px 14px;
+      font-size: 0.66rem;
+      letter-spacing: 0.9px;
+    }
+  }
+</style>
+</head>
+<body>
+  <nav id="hud">
+    <div class="grape-display">
+      <img src="img/icons8-grape-60.png" alt="Grape icon" class="grape-icon">
+      <span>Grapes: <span id="grape-count">5</span>/5</span>
+    </div>
+  </nav>
+
+  <main class="final-ending-shell">
+    <section class="final-ending-card">
+      <p class="final-kicker">THE FINAL REVELATION</p>
+      <h1 class="final-title">Zeus's Trial</h1>
+
+<p class="final-text">
+  The light parts, and the truth is revealed. This was never only a dream, but a
+  <span class="final-highlight">trial set by Zeus</span>.
+</p>
+
+<p class="final-text">
+  A test of whether Dionysus would lose himself in illusion, or face what lay beneath it.
+</p>
+
+<p class="final-text">
+  The trial is over. But the answer is left with you.
+</p>
+
+      <div class="final-actions">
+        <a href="index.html" class="final-btn">Restart the Trial</a>
+      </div>
+    </section>
+  </main>
+  
+  <script>
+    // Ensure grapes display as 5/5 on final ending page
+    window.addEventListener('load', function() {
+      localStorage.setItem('grapes', 5);
+      const grapeElements = document.querySelectorAll('#grape-count');
+      grapeElements.forEach(el => {
+        el.innerText = '5';
+      });
+    });
+  </script>
+</body>
+</html>

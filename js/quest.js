@@ -1,22 +1,77 @@
 /**
  * Quest Navigation & Dialogue System
- * Handles quest2-ending progression
+ * Handles quest2-ending progression with grape tracking
  */
-
-let grapes = 0;
 
 // Initialize quest.html on load
 window.onload = function() {
     // Show first quest (quest2 with Apollo dialogue)
     navigateTo('quest2');
     
-    // Retrieve grapes from localStorage if available
-    const savedGrapes = localStorage.getItem('grapes');
-    if (savedGrapes) {
-        grapes = parseInt(savedGrapes);
-        document.getElementById('grape-count').innerText = grapes;
+    // Load and display current grape count from localStorage
+    updateGrapeDisplay();
+    
+    // Show chatbot on quest page
+    const chatbotContainer = document.getElementById('chatbot-container');
+    if (chatbotContainer) {
+        chatbotContainer.classList.remove('hidden');
     }
+    
+    autoGreeting();
 };
+
+/* ========================================
+   GRAPE MANAGEMENT FUNCTIONS
+   (Replicate from script.js for quest pages)
+   ======================================== */
+
+function getGrapes() {
+    const saved = localStorage.getItem('grapes');
+    return saved ? parseInt(saved) : 0;
+}
+
+function setGrapes(count) {
+    const maxGrapes = 5;
+    const newCount = Math.min(Math.max(count, 0), maxGrapes);
+    localStorage.setItem('grapes', newCount);
+    updateGrapeDisplay();
+    return newCount;
+}
+
+function addGrape() {
+    const current = getGrapes();
+    if (current < 5) {
+        return setGrapes(current + 1);
+    }
+    return current;
+}
+
+function updateGrapeDisplay() {
+    const count = getGrapes();
+    const grapeElements = document.querySelectorAll('#grape-count');
+    grapeElements.forEach(el => {
+        el.innerText = count;
+    });
+}
+
+function unlockGrape(step) {
+    const current = getGrapes();
+    if (step > current) {
+        setGrapes(step);
+    }
+}
+
+/* ========================================
+   QUEST PROGRESSION & GRAPE TRACKING
+   ======================================== */
+
+function completeQuest3() {
+    unlockGrape(3); // Award grape 3 for completing maze/quest3
+}
+
+function completeQuest4() {
+    unlockGrape(4); // Award grape 4 for completing VR/quest4
+}
 
 // --- Navigation between quests ---
 
@@ -44,6 +99,12 @@ function toggleChat() {
     document.getElementById('chatbot-window').classList.toggle('hidden');
 }
 
+function autoGreeting() {
+    // Ensure window displays and Satyr greets first
+    document.getElementById('chatbot-window').classList.remove('hidden');
+    appendBotMessage("Remember, traveler. Every choice echoes in the dream. What do you need?");
+}
+
 function sendMessage() {
     const input = document.getElementById('user-input');
     const text = input.value.toUpperCase().trim();
@@ -54,11 +115,15 @@ function sendMessage() {
 
     setTimeout(() => {
         if (text === "YES" || text === "INVITE ME") {
-            appendBotMessage("I knew you had the spirit! Here is your first **Grape 🍇**.");
-            appendBotMessage("You're deep in the dream now. Navigate through the trials and collect the grapes!");
-            updateGrapes();
+            appendBotMessage("Good. The dream requires willingness.");
+            appendBotMessage("Navigate the trials, face the choices, and the path will reveal itself.");
+        } else if (text === "HELP" || text === "WHAT DO I DO" || text === "GUIDE") {
+            appendBotMessage("You are in the dream of Dionysus. Two paths clash: harmony and ecstasy.");
+            appendBotMessage("Pay attention to the dialogue. Your choices matter more than you think.");
+        } else if (text === "SKIP" || text === "SKIP DIALOGUE") {
+            appendBotMessage("Impatient, are we? The story cannot be rushed. Only experienced.");
         } else {
-            appendBotMessage("What? The music is so loud! Just say **YES** if you need help!");
+            appendBotMessage("The music is loud here... try **YES**, **HELP**, or **SKIP** if you're lost.");
         }
     }, 800);
 }
@@ -79,14 +144,6 @@ function appendUserMessage(text) {
     p.innerText = text;
     history.appendChild(p);
     history.scrollTop = history.scrollHeight;
-}
-
-function updateGrapes() {
-    if(grapes < 5) {
-        grapes++;
-        document.getElementById('grape-count').innerText = grapes;
-        localStorage.setItem('grapes', grapes);
-    }
 }
 
 // --- Initialize Roleplay 1 when page loads ---
