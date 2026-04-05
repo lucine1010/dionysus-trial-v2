@@ -380,13 +380,14 @@ body, html {
     flex-direction: column;
     align-items: flex-end;
     pointer-events: auto;
-    max-width: 90vw;
+    max-width: calc(100vw - 40px);
 }
 
 
 #chatbot-window {
-    width: clamp(240px, 28vw, 320px);
-    max-height: 70vh;
+    width: clamp(240px, 28vw, 300px);
+    max-height: calc(100vh - 50px - 80px);
+    min-height: 200px;
     height: auto;
     background: rgba(10, 9, 12, 0.95);
     border: 2px solid #6C4675;
@@ -397,6 +398,7 @@ body, html {
     box-shadow: 0 8px 32px rgba(108, 70, 117, 0.3);
     overflow-y: auto;
     overflow-x: hidden;
+    box-sizing: border-box;
 }
 
 #satyr-trigger img {
@@ -459,10 +461,11 @@ body, html {
 /* Input area styling */
 #chatbot-input-area {
     display: flex;
-    gap: 8px;
-    padding: 12px;
+    gap: 6px;
+    padding: 10px;
     border-top: 1px solid rgba(192, 160, 96, 0.2);
     background: rgba(20, 18, 22, 0.8);
+    box-sizing: border-box;
 }
 
 #user-input {
@@ -474,6 +477,8 @@ body, html {
     padding: 8px 12px;
     font-size: 0.9rem;
     transition: all 0.3s ease;
+    min-width: 0;
+    box-sizing: border-box;
 }
 
 #user-input:focus {
@@ -491,12 +496,14 @@ body, html {
     background: linear-gradient(135deg, #6C4675 0%, #8B5E9C 100%);
     border: 1px solid #C0A060;
     color: var(--accent-gold);
-    padding: 8px 16px;
+    padding: 8px 14px;
     border-radius: 8px;
     cursor: pointer;
     font-weight: bold;
     transition: all 0.3s ease;
     font-size: 0.85rem;
+    flex-shrink: 0;
+    white-space: nowrap;
 }
 
 #chatbot-input-area button:hover {
@@ -628,15 +635,23 @@ body, html {
         left: 50%;
         right: auto;
         transform: translateX(-50%);
-        bottom: 8px;
+        bottom: 6px;
         align-items: center;
-        max-width: 95vw;
+        max-width: calc(100vw - 12px);
+        padding: 0 4px;
     }
     
     #chatbot-window {
         width: clamp(240px, 90vw, 280px);
-        max-height: 55vh;
+        max-height: calc(100vh - 45px - 120px);
         height: auto;
+        flex-shrink: 0;
+        box-sizing: border-box;
+    }
+    
+    #chatbot-history {
+        max-height: calc(100vh - 45px - 180px);
+        overflow-y: auto;
     }
     
     #chatbot-history p {
@@ -647,13 +662,19 @@ body, html {
     #user-input {
         font-size: 0.85rem;
         padding: 6px 10px;
+        min-width: 0;
+        box-sizing: border-box;
     }
     
     #chatbot-input-area button {
         font-size: 0.75rem;
         padding: 6px 12px;
+        flex-shrink: 0;
+        white-space: nowrap;
     }
-}
+    #satyr-trigger img {
+        width: clamp(40px, 5vw, 56px);
+    }}
 
 /* =========================================
    MOBILE LANDSCAPE - HOME PAGE
@@ -738,9 +759,16 @@ body, html {
     #chatbot-window {
         width: min(210px, 24vw);
         max-width: 24vw;
-        max-height: 46dvh;
+        max-height: calc(100dvh - 40px - 60px);
         border-radius: 12px;
         margin-bottom: 4px;
+        flex-shrink: 0;
+        box-sizing: border-box;
+    }
+
+    #chatbot-history {
+        max-height: calc(100dvh - 40px - 120px);
+        overflow-y: auto;
     }
 
     #chatbot-header {
@@ -762,16 +790,21 @@ body, html {
     #chatbot-input-area {
         padding: 6px;
         gap: 5px;
+        box-sizing: border-box;
     }
 
     #user-input {
         font-size: 0.68rem;
         padding: 5px 6px;
+        min-width: 0;
+        box-sizing: border-box;
     }
 
     #chatbot-input-area button {
         font-size: 0.64rem;
         padding: 5px 8px;
+        flex-shrink: 0;
+        white-space: nowrap;
     }
 
     #satyr-trigger img {

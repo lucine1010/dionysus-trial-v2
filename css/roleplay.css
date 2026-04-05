@@ -9,7 +9,7 @@
   background-position: center;
   background-repeat: no-repeat;
   transition: background-image 0.45s ease;
-  overflow: hidden;
+  /*overflow: hidden;*/
 }
 
 #quest2::before {
