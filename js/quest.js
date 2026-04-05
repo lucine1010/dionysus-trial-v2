@@ -5,21 +5,15 @@
 
 // Initialize quest.html on load
 window.onload = function() {
-    // Show first quest (quest2 with Apollo dialogue)
     navigateTo('quest2');
-    
-    // Load and display current grape count from localStorage
-    updateGrapeDisplay();
-    
-    // Show chatbot on quest page
+
     const chatbotContainer = document.getElementById('chatbot-container');
     if (chatbotContainer) {
         chatbotContainer.classList.remove('hidden');
     }
-    
+
     autoGreeting();
 };
-
 /* ========================================
    GRAPE MANAGEMENT FUNCTIONS
    (Replicate from script.js for quest pages)
@@ -76,13 +70,25 @@ function completeQuest4() {
 // --- Navigation between quests ---
 
 function navigateTo(pageId) {
+    // Update grapes based on which quest page is being entered
+    if (pageId === 'quest2') {
+        setGrapes(2);
+    } else if (pageId === 'quest3') {
+        setGrapes(3);
+    } else if (pageId === 'quest4') {
+        setGrapes(4);
+    }
+
     hideAllPages();
+
     const target = document.getElementById(pageId);
     if (target) {
         target.classList.remove('hidden');
         target.classList.add('active');
         console.log(`Navigated to: ${pageId}`);
     }
+
+    updateGrapeDisplay();
 }
 
 function hideAllPages() {
