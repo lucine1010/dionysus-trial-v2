@@ -1,0 +1,190 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Dionysus: The Dream Trial - Quest 4</title>
+<link rel="stylesheet" href="css/style.css" />
+<link rel="stylesheet" href="css/quest.css" />
+<style>
+   html, body {
+     margin: 0;
+     width: 100%;
+     height: 100%;
+     overflow: hidden;
+   }
+   body {
+     background: #0a090c;
+   }
+   #hud {
+     position: fixed;
+     top: 0;
+     left: 0;
+     right: 0;
+     z-index: 20;
+   }
+   .quest4-page {
+     position: fixed;
+     inset: 0;
+     width: 100vw;
+     height: 100vh;
+     min-height: 100vh;
+     overflow: hidden;
+     background:
+       linear-gradient(rgba(10, 9, 12, 0.42), rgba(10, 9, 12, 0.68)),
+       url("backgrounds/8.png") no-repeat center center;
+     background-size: cover;
+     display: flex;
+     align-items: center;
+     justify-content: center;
+     padding: 88px 20px 24px;
+     box-sizing: border-box;
+   }
+   .quest4-overlay {
+     position: absolute;
+     inset: 0;
+     background: radial-gradient(circle at center, rgba(255,255,255,0.05), rgba(0,0,0,0.28));
+     pointer-events: none;
+   }
+   .quest4-content {
+     position: relative;
+     z-index: 2;
+     width: min(920px, 92vw);
+     text-align: center;
+     display: flex;
+     flex-direction: column;
+     align-items: center;
+     justify-content: center;
+   }
+   .quest4-title {
+     margin: 0 0 18px 0;
+     color: var(--accent-gold);
+     font-size: clamp(2.3rem, 5vw, 4.2rem);
+     text-shadow: 0 0 16px rgba(192, 160, 96, 0.3);
+     line-height: 1.05;
+   }
+   .quest4-visual {
+     margin-bottom: 18px;
+     display: flex;
+     align-items: center;
+     justify-content: center;
+     gap: 28px;
+     flex-wrap: wrap;
+   }
+   .quest4-image {
+     width: min(180px, 20vw);
+     height: auto;
+     object-fit: contain;
+     filter: drop-shadow(0 8px 24px rgba(0,0,0,0.35));
+     display: block;
+   }
+   .quest4-box {
+     width: min(920px, 88vw);
+     margin: 0 auto 20px auto;
+   }
+   .quest4-actions {
+     display: flex;
+     flex-direction: column;
+     align-items: center;
+     gap: 12px;
+     width: 100%;
+   }
+   .quest4-actions .gate-btn {
+     min-width: 320px;
+     max-width: 90vw;
+   }
+   @media (max-width: 932px) and (orientation: landscape) {
+     .quest4-page {
+       padding: 54px 16px 16px;
+     }
+     .quest4-title {
+       font-size: clamp(1.6rem, 4vw, 2.7rem);
+       margin-bottom: 12px;
+     }
+     .quest4-visual {
+       margin-bottom: 12px;
+       gap: 18px;
+     }
+     .quest4-image {
+       width: min(100px, 12vw);
+     }
+     .quest4-box {
+       margin-bottom: 14px;
+     }
+     .quest4-box p {
+       font-size: 0.84rem;
+       line-height: 1.45;
+     }
+     .quest4-actions {
+       gap: 8px;
+     }
+     .quest4-actions .gate-btn {
+       min-width: 240px;
+       font-size: 0.72rem;
+       padding: 8px 14px;
+     }
+   }
+   @media (max-width: 640px) {
+     .quest4-title {
+       font-size: clamp(1.8rem, 8vw, 3rem);
+     }
+     .quest4-image {
+       width: 84px;
+     }
+     .quest4-actions .gate-btn {
+       min-width: 260px;
+     }
+   }
+</style>
+</head>
+<body>
+<nav id="hud">
+<div class="grape-display">
+<img src="img/icons8-grape-60.png" alt="Grape icon" class="grape-icon">
+<span class="grape-label">Grapes: <span id="grape-count">4</span>/5</span>
+</div>
+</nav>
+<section id="quest4-page" class="quest4-page">
+<div class="quest4-overlay"></div>
+<div class="quest4-content">
+<h1 class="cathdra quest4-title">DIVINE ALLIANCE</h1>
+<div class="quest4-visual">
+<img src="img/SWLP0pApkXPGlpO7pIhzo.png" alt="VR gateway" class="quest4-image" />
+</div>
+<div class="narrative-box quest4-box">
+<p>The path is not yet complete. Step beyond the maze and enter the next trial.</p>
+<p><strong>MISSION:</strong> Enter the VR experience and continue your journey.</p>
+</div>
+<div class="quest4-actions">
+<button
+         class="gate-btn"
+         onclick="window.open('https://drive.google.com/file/d/1dSqmANgemFvamNLX_P4c1XZ9hpv_RGld/view?usp=drive_link', '_blank')">
+         LAUNCH VR EXPERIENCE
+</button>
+</div>
+</div>
+</section>
+<script>
+   function getGrapes() {
+     const saved = localStorage.getItem("grapes");
+     return saved ? parseInt(saved, 10) : 0;
+   }
+   function setGrapes(count) {
+     const maxGrapes = 5;
+     const newCount = Math.min(Math.max(count, 0), maxGrapes);
+     localStorage.setItem("grapes", newCount);
+     updateGrapeDisplay();
+     return newCount;
+   }
+   function updateGrapeDisplay() {
+     const count = getGrapes();
+     const grapeEl = document.getElementById("grape-count");
+     if (grapeEl) grapeEl.innerText = count;
+   }
+   window.addEventListener("load", () => {
+     setGrapes(4);
+     updateGrapeDisplay();
+   });
+</script>
+</body>
+</html>
