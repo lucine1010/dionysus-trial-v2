@@ -21,6 +21,8 @@ body, html {
     min-height: 100vh;
     width: 100%;
     overflow-x: hidden; /* Allow vertical scrolling on small screens */
+      -webkit-text-size-adjust: 100%;
+  text-size-adjust: 100%;
 }
 
 .cathdra {
