@@ -33,7 +33,7 @@
     position: relative;
     min-height: 100svh;
     width: 100%;
-    background: url('../img/2_draft.jpg') no-repeat center center;
+    background: url('../backgrounds/2.png') no-repeat center center;
     background-size: cover;
     background-attachment: fixed;
 }
@@ -43,7 +43,7 @@
     position: relative;
     min-height: 100svh;
     width: 100%;
-    background: url('../backgrounds/8.png') no-repeat center center;
+    background: url('../backgrounds/4.png') no-repeat center center;
     background-size: cover;
     background-attachment: fixed;
 }
